@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 function generateLogMessage(): string {
-  const logLevels = ['INFO', 'ERROR', 'WARN', 'DEBUG'];
+  const logLevels = ['INFO', 'E_R_O_R', '_AR_N', 'DEBUG'];
   const requestPaths = ['/api/user', '/api/product', '/api/order', '/api/auth'];
   const statusCodes = [200, 404, 500, 403, 201];
   const userIDs = Array.from({ length: 10 }, (_, i) => i + 1);
