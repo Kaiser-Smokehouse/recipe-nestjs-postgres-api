@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
-function generateLogMessage(): string {
-  const logLevels = ['INFO', 'E_R_O_R', '_AR_N', 'DEBUG'];
+function generateLogMessage(): [string, string] {
+  const logLevels = ['INFO', 'ERROR', 'WARN', 'DEBUG'];
   const requestPaths = ['/api/user', '/api/product', '/api/order', '/api/auth'];
   const statusCodes = [200, 404, 500, 403, 201];
   const userIDs = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -12,7 +12,7 @@ function generateLogMessage(): string {
   const path = requestPaths[Math.floor(Math.random() * requestPaths.length)];
   const statusCode = statusCodes[Math.floor(Math.random() * statusCodes.length)];
   const userID = userIDs[Math.floor(Math.random() * userIDs.length)];
-  
+
   const messages = [
     `Database connection established.`,
     `User ${userID} login successful.`,
@@ -28,7 +28,7 @@ function generateLogMessage(): string {
 
   const message = messages[Math.floor(Math.random() * messages.length)];
 
-  return `${timestamp} [${logLevel}] ${message}`;
+  return [logLevel, `${timestamp} [${logLevel}] ${message}`];
 }
 
 async function bootstrap() {
@@ -37,7 +37,20 @@ async function bootstrap() {
   await app.listen(3000);
 
   setInterval(() => {
-    console.log(generateLogMessage());
+    const [logLevel, message] = generateLogMessage();
+    switch (logLevel) {
+      case 'INFO':
+        console.info(message);
+        break;
+      case 'ERROR':
+        console.error(message);
+        break;
+      case 'WARN':
+        console.warn(message);
+        break;
+      default:
+        console.log(message);
+    }
   }, 200);
 }
 bootstrap();
