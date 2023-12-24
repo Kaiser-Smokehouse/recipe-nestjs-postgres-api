@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 function generateLogMessage(): [string, string] {
-  const logLevels = ['INFO', 'ERROR', 'WARN', 'DEBUG'];
+  const logLevels = ['I', 'E', 'W', 'D'];
   const requestPaths = ['/api/user', '/api/product', '/api/order', '/api/auth'];
   const statusCodes = [200, 404, 500, 403, 201];
   const userIDs = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -39,13 +39,13 @@ async function bootstrap() {
   setInterval(() => {
     const [logLevel, message] = generateLogMessage();
     switch (logLevel) {
-      case 'INFO':
+      case 'I':
         console.info(message);
         break;
-      case 'ERROR':
+      case 'E':
         console.error(message);
         break;
-      case 'WARN':
+      case 'W':
         console.warn(message);
         break;
       default:
